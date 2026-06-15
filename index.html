@@ -356,14 +356,18 @@
     font-weight: 700;
   }
 
+  /* RODAPÉ BRILHANTE E LEGÍVEL CONTRA O FUNDO PRETO */
   .footer {
     text-align: center;
-    color: #555;
-    font-size: 10px;
+    color: #a0aec0; /* Tom de cinza-claro muito mais visível */
+    font-size: 10.5px;
     line-height: 1.6;
+    margin-top: 4px;
   }
 
-  .footer strong { color: #888; }
+  .footer strong { 
+    color: #ffffff; /* Branco puro no nome principal */
+  }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(4px); }
@@ -590,49 +594,40 @@
     calcular();
   }
 
-  // Função reescrita para incrementar exatamente de 0,01 em 0,01 sem erros decimais
+  // Incrementa de 0,01 em 0,01 sem casas sobressalentes
   function ajustarTaxa(id, delta) {
     const el = document.getElementById(id);
     if (!el) return;
     
-    // Leitura limpa do valor decimal
     let val = parseFloat(el.value.trim().replace(',', '.')) || 0;
-    
-    // Incremento/decremento preciso
     let novoVal = val + delta;
     if (novoVal < 0) novoVal = 0;
     
-    // Arredondamento para evitar ruído do javascript (ex: 0.1 + 0.2 = 0.30000004)
     novoVal = Math.round(novoVal * 1000) / 1000;
-    
-    // Atribuição com formatação brasileira sem zeros inúteis à direita
     el.value = novoVal.toString().replace('.', ',');
     
     calcular();
   }
 
-  // Decodifica valores monetários formatados (com milhar)
+  // Decodifica valores formatados
   function parseInputVal(id) {
     const el = document.getElementById(id);
     if (!el) return 0;
     let raw = el.value.trim();
     if (!raw) return 0;
     
-    // Remove os pontos de milhar e substitui a vírgula decimal por ponto.
     raw = raw.replace(/\./g, '').replace(',', '.');
-    
     const num = parseFloat(raw);
     return isNaN(num) ? 0 : num;
   }
 
-  // Novo parser seguro para taxas (evita que pontos normais quebrem a porcentagem)
+  // Parser seguro para taxas
   function parseRateVal(id) {
     const el = document.getElementById(id);
     if (!el) return 0;
     let raw = el.value.trim();
     if (!raw) return 0;
     
-    // Nas taxas substitui apenas a vírgula direta por ponto, sem mexer em pontos normais
     raw = raw.replace(',', '.');
     const num = parseFloat(raw);
     return isNaN(num) ? 0 : num;
@@ -647,7 +642,7 @@
   function tratarCola(e) {
     e.preventDefault();
     let texto = (e.clipboardData || window.clipboardData).getData('text');
-    texto = texto.replace(/\D/g, ''); // Mantém apenas números
+    texto = texto.replace(/\D/g, ''); 
     if (!texto) return;
 
     const el = e.target;
@@ -696,7 +691,6 @@
       }
     }
 
-    // Sincronização automática em tempo real do simulador
     const simField = document.getElementById('precoVendaSim');
     simField.value = precoMin.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     simularLucro();
@@ -736,24 +730,21 @@
     document.getElementById('simLucro').textContent = sinal + fmt(lucro);
     document.getElementById('simLucro').className   = 'res-valor ' + col;
 
-    // ATUALIZAÇÃO REATIVA DO TERMÔMETRO DE RETORNO (FEEDBACK VISUAL)
+    // ATUALIZAÇÃO REATIVA DO TERMÔMETRO
     const tTexto = document.getElementById('termometroTexto');
     const tPercent = document.getElementById('termometroPercent');
     const tBar = document.getElementById('termometroBarFill');
 
     if (lucro < -0.005) {
-      // Estado de Prejuízo (Vermelho)
       tTexto.textContent = '⚠️ Abaixo do break-even';
       tTexto.style.color = 'var(--danger)';
       tPercent.textContent = pctROI.toFixed(2) + '%';
       tPercent.style.color = 'var(--danger)';
       tBar.style.backgroundColor = 'var(--danger)';
       
-      // Barra indica o quão próximo do Break-Even você está
       let progressoLoss = (precoSimVal / precoMin) * 100;
       tBar.style.width = Math.max(5, Math.min(95, progressoLoss)) + '%';
     } else if (Math.abs(lucro) <= 0.005) {
-      // Estado de Break-Even (Amarelo)
       tTexto.textContent = '⚖️ Ponto de equilíbrio';
       tTexto.style.color = 'var(--accent)';
       tPercent.textContent = '0.00%';
@@ -761,20 +752,17 @@
       tBar.style.backgroundColor = 'var(--accent)';
       tBar.style.width = '100%';
     } else {
-      // Estado de Lucro (Verde)
       tTexto.textContent = '🚀 Retorno positivo';
       tTexto.style.color = 'var(--accent2)';
       tPercent.textContent = '+' + pctROI.toFixed(2) + '%';
       tPercent.style.color = 'var(--accent2)';
       tBar.style.backgroundColor = 'var(--accent2)';
       
-      // Proporcional a uma meta de 10% de ganho líquido para encher a barra
       let progressoGain = (pctROI / 10) * 100;
       tBar.style.width = Math.max(15, Math.min(100, progressoGain)) + '%';
     }
   }
 
-  // Limpa o termômetro de retorno
   function resetTermometro() {
     const tTexto = document.getElementById('termometroTexto');
     const tPercent = document.getElementById('termometroPercent');
@@ -789,7 +777,6 @@
     }
   }
 
-  // Auxiliar para a transição suave de elementos
   function set(id, texto, col) {
     const el = document.getElementById(id);
     el.textContent = texto;
