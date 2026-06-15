@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora Cripto – Binance Pro</title>
+<title>Calculadora BTC – Binance Pro</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
   :root {
-    --bg: #0a0a0f;
+    --bg: #000000; /* Fundo alterado para preto absoluto */
     --panel: #13131e;
     --card: #1a1a28;
     --border: #2a2a40;
     --border2: #475569;
-    --accent: #f0a500; /* Bitcoin Gold Dinâmico */
+    --accent: #F3BA2F; /* Bitcoin Gold */
     --accent2: #00d4aa; /* Neon Green */
     --danger: #ff4f4f;
     --text: #e8e8f0;
@@ -31,117 +31,126 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 16px 16px;
+    padding: 12px 8px; /* Otimizado para celular */
     gap: 10px;
     overflow-x: hidden;
     position: relative;
   }
 
-  body::before {
-    content: '';
+  /* ESTILOS DOS ELEMENTOS DE BTC FLUTUANTES NO FUNDO */
+  .bg-btc {
     position: fixed;
-    inset: 0;
-    animation: brasilFlow 8s ease-in-out infinite;
-    opacity: 0.08; 
+    left: 0;
+    top: 0;
     pointer-events: none;
     z-index: -1;
-  }
-
-  @keyframes brasilFlow {
-    0%   { background-color: #009c3b; }
-    25%  { background-color: #FFDF00; }
-    50%  { background-color: #002776; }
-    75%  { background-color: #e8f5e9; }
-    100% { background-color: #009c3b; }
-  }
-
-  /* ── SELETOR DE CRIPTOMOEDAS RESPONSIVO ── */
-  .crypto-selector {
-    display: flex;
-    gap: 4px;
-    width: 480px;
-    max-width: 100%;
-    margin-bottom: 2px;
-    justify-content: space-between;
-  }
-
-  .crypto-btn {
-    flex: 1;
-    padding: 8px 4px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--panel);
-    color: var(--muted2);
+    user-select: none;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: all 0.3s ease;
+    font-weight: 900;
+    animation: btcCorBandeira 8s linear infinite;
   }
 
-  .crypto-btn.active {
-    background: rgba(255, 255, 255, 0.02);
-    border-color: var(--accent);
-    color: var(--text);
-    box-shadow: 0 0 12px var(--accent);
+  @keyframes btcCorBandeira {
+    0%   { color: #00ff4c; text-shadow: 0 0 12px #00ff4c, 0 0 24px rgba(0, 255, 76, 0.8); }
+    25%  { color: #ffea00; text-shadow: 0 0 12px #ffea00, 0 0 24px rgba(255, 234, 0, 0.8); }
+    50%  { color: #0055ff; text-shadow: 0 0 12px #0055ff, 0 0 24px rgba(0, 85, 255, 0.8); }
+    75%  { color: #ffffff; text-shadow: 0 0 12px #ffffff, 0 0 24px rgba(255, 255, 255, 0.8); }
+    100% { color: #00ff4c; text-shadow: 0 0 12px #00ff4c, 0 0 24px rgba(0, 255, 76, 0.8); }
   }
 
-  .crypto-btn:hover:not(.active) {
-    border-color: var(--border2);
-    color: var(--text);
-  }
-
-  .crypto-icon {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
-    transition: transform 0.3s ease;
-  }
-
+  /* CAIXINHA DE AVISO (TOP) COM EFEITO JATEADO E TAMANHO PARA GALAXY A51 */
   .aviso {
-    width: 480px;
-    max-width: 100%;
-    background: #12121a;
-    border: 1px solid #2a2a40;
-    color: #999;
-    font-size: 11px;
-    padding: 10px 14px;
-    border-radius: 10px;
+    width: 100%;
+    max-width: 412px; /* Dimensão calibrada para o Galaxy A51 */
+    color: #ccc;
+    font-size: 10.5px;
+    padding: 10px 12px;
+    border-radius: 12px;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.4;
+    
+    /* Borda fina de 1px brilhante e efeito jateado (blur) */
+    border: 1px solid transparent;
+    background: 
+      linear-gradient(rgba(18, 18, 26, 0.85), rgba(18, 18, 26, 0.85)) padding-box, 
+      linear-gradient(120deg, #F3BA2F 30%, #fff6d1 50%, #F3BA2F 70%) border-box;
+    background-size: 100% 100%, 200% auto;
+    animation: shimmerBorda 4s linear infinite;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
+  /* ESTRUTURA DA CALCULADORA (PAINEL) COM EFEITO JATEADO E TAMANHO PARA GALAXY A51 */
   .painel {
-    width: 480px;
-    max-width: 100%;
-    background: var(--panel);
-    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 412px; /* Dimensão calibrada para o Galaxy A51 */
     border-radius: 20px;
-    padding: 16px;
-    box-shadow: 0 20px 40px rgba(0,0,0,.7);
+    padding: 14px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.8);
+    
+    border: 1px solid transparent;
+    background: 
+      linear-gradient(rgba(19, 19, 30, 0.85), rgba(19, 19, 30, 0.85)) padding-box, 
+      linear-gradient(120deg, #F3BA2F 30%, #fff6d1 50%, #F3BA2F 70%) border-box;
+    background-size: 100% 100%, 200% auto;
+    animation: shimmerBorda 4s linear infinite;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
+  /* CONTAINER E ANIMAÇÕES DO TÍTULO */
   .titulo-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    perspective: 1000px;
   }
 
-  .titulo {
-    text-align: center;
+  .titulo-animado {
     font-size: 16px;
     font-weight: 800;
     letter-spacing: 0.5px;
-    color: var(--accent);
     text-transform: uppercase;
-    transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    
+    background: linear-gradient(120deg, #F3BA2F 30%, #fff6d1 50%, #F3BA2F 70%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerTexto 4s linear infinite;
+  }
+
+  .btc-simbolo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    display: inline-block;
+    transform-style: preserve-3d;
+    animation: girarMoeda3D 3s linear infinite;
+    
+    background: #FFDF00;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 6px rgba(255, 223, 0, 0.8));
+  }
+
+  /* Animações de brilho */
+  @keyframes shimmerTexto {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+
+  @keyframes shimmerBorda {
+    0% { background-position: 0 0, 200% center; }
+    100% { background-position: 0 0, -200% center; }
+  }
+
+  @keyframes girarMoeda3D {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
   }
 
   .card {
@@ -153,7 +162,7 @@
   }
 
   .label {
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--muted2);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -168,7 +177,7 @@
     background: rgba(0,0,0,.3);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 8px 10px;
+    padding: 6px 10px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -177,12 +186,20 @@
     box-shadow: 0 0 10px var(--accent);
   }
 
+  /* ESTILO DO R$ */
   .prefix {
-    color: var(--accent);
     font-family: 'Share Tech Mono', monospace;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 700;
     white-space: nowrap;
-    transition: color 0.3s ease;
+    display: inline-block;
+
+    background: linear-gradient(120deg, #F3BA2F 30%, #fff6d1 50%, #F3BA2F 70%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerTexto 4s linear infinite;
+    filter: drop-shadow(0 0 3px rgba(243, 186, 47, 0.4));
   }
 
   input {
@@ -191,7 +208,7 @@
     outline: none;
     color: var(--text);
     font-family: 'Share Tech Mono', monospace;
-    font-size: 15px;
+    font-size: 14.5px;
     width: 100%;
   }
 
@@ -212,14 +229,19 @@
     text-align: center;
   }
 
+  /* CAIXINHAS EM DESTAQUE COM BORDA FINA ANIMADA */
   .res-card.destaque {
-    border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.01);
-    transition: border-color 0.3s ease;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: 
+      linear-gradient(var(--card), var(--card)) padding-box, 
+      linear-gradient(120deg, #F3BA2F 30%, #fff6d1 50%, #F3BA2F 70%) border-box;
+    background-size: 100% 100%, 200% auto;
+    animation: shimmerBorda 4s linear infinite;
   }
 
   .res-label {
-    font-size: 10px;
+    font-size: 9.5px;
     color: var(--muted2);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -228,34 +250,67 @@
   }
 
   .taxa-edit {
-    width: 54px;
+    width: 44px;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 16px;
+    font-size: 13px;
     color: var(--accent);
     background: rgba(255,255,255,.05);
     border: 1px dashed #555;
     border-radius: 4px;
-    padding: 4px 6px;
+    padding: 4px 4px;
     text-align: center;
     outline: none;
-    transition: color 0.3s ease, border-color 0.3s ease;
   }
 
   .taxa-edit:focus {
     border-color: var(--accent);
-    color: var(--accent);
   }
 
   .res-valor {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 16px;
+    font-size: 13.5px;
     color: var(--text);
     word-break: break-all;
   }
 
   .res-valor.verde   { color: var(--accent2); }
-  .res-valor.amarelo { color: var(--accent); transition: color 0.3s ease; }
+  .res-valor.amarelo { color: var(--accent); }
   .res-valor.vermelho{ color: var(--danger); }
+
+  /* ESTILOS ESPECÍFICOS DO TERMÔMETRO DE RETORNO (FEEDBACK DE LUCRO) */
+  .termometro-card {
+    padding: 10px 12px;
+    margin-top: 6px;
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  .termometro-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .termometro-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 8px;
+    position: relative;
+  }
+
+  .termometro-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--muted);
+    border-radius: 6px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease;
+  }
 
   button {
     width: 100%;
@@ -267,7 +322,7 @@
     color: #fff;
     cursor: pointer;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -293,7 +348,7 @@
   }
 
   .section-title {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--muted);
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -304,7 +359,7 @@
   .footer {
     text-align: center;
     color: #555;
-    font-size: 11px;
+    font-size: 10px;
     line-height: 1.6;
   }
 
@@ -335,141 +390,35 @@
     font-size: 9px;
     cursor: pointer;
     line-height: 1.4;
-    transition: color 0.3s ease;
   }
 
   .seta:hover { background: rgba(255,255,255,.18); }
-
-  /* Ajustes móveis calibrados para o celular */
-  @media (max-width: 520px) {
-    body {
-      padding: 12px 8px;
-      gap: 10px;
-    }
-
-    .crypto-btn {
-      font-size: 9.5px !important;
-      padding: 6px 2px !important;
-      gap: 3px !important;
-    }
-
-    .crypto-icon {
-      width: 11px !important;
-      height: 11px !important;
-    }
-
-    .painel {
-      padding: 16px 14px;
-      border-radius: 14px;
-    }
-
-    .titulo {
-      font-size: 15px;
-    }
-
-    .card {
-      padding: 8px 10px;
-      margin-bottom: 6px;
-    }
-
-    input {
-      font-size: 15px;
-    }
-
-    .resultado-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .res-card {
-      padding: 10px 8px;
-    }
-
-    .res-valor {
-      font-size: 11.5px;
-    }
-
-    .res-valor#liquido {
-      font-size: 16px !important;
-    }
-
-    .taxa-edit {
-      width: 40px;
-      font-size: 13px;
-    }
-
-    button {
-      padding: 12px;
-      font-size: 13px;
-    }
-
-    .aviso {
-      font-size: 10px;
-      padding: 8px 10px;
-    }
-
-    .section-title {
-      font-size: 10px;
-    }
-
-    .res-label {
-      font-size: 9px;
-    }
-
-    .footer {
-      font-size: 10px;
-    }
-  }
 </style>
 </head>
 <body>
 
 <div class="aviso">
-  📊 <strong>Simulador de Ponto de Equilíbrio (Break-Even):</strong> Esta ferramenta offline projeta suas taxas de compra e venda da Binance para revelar o preço exato de saída necessário para não perder dinheiro, simulando seu lucro real sem expor seus dados ou chaves de API.
-</div>
-
-<!-- BARRA DE SELEÇÃO RÁPIDA COM LOGOS VETORIAIS OFICIAIS (SVG) -->
-<div class="crypto-selector">
-  <button class="crypto-btn active" id="btn-crypto-btc" onclick="selecionarCrypto('btc')">
-    <svg class="crypto-icon" viewBox="0 0 24 24" fill="#F3BA2F"><path d="M23.638 14.073c-.45-1.81-1.615-3.155-3.328-3.793 1.25-.66 2.055-1.742 2.304-3.17-.294-1.688-.236-3.15-1.503-4.148-1.047-.826-2.5-1.162-4.123-1.157L16.988 1.8V0h-3.033v1.8h-1.89V0H9.032v1.8H5.97v2.247c1.393.003 2.155.437 2.14 1.348l-.01 9.682c.005.626-.547.962-1.714.954l-1.393.003V19.3h3.063v1.8h3.032V19.3h1.89v1.8h3.033V19.3c3.486.007 5.76-.713 6.643-3.18.59-1.66.423-3.522-.162-5.112zM12.016 4.908h3.337c1.077 0 1.83.178 2.215.753.376.561.346 1.344-.067 1.895-.417.553-1.25.751-2.483.743h-3.002V4.908zm0 6.657h3.766c1.196 0 1.956.243 2.345.823.364.545.318 1.488-.13 2.072-.44.577-1.312.753-2.678.742h-3.303v-3.637z"/></svg>
-    BTC
-  </button>
-  <button class="crypto-btn" id="btn-crypto-usdt" onclick="selecionarCrypto('usdt')">
-    <svg class="crypto-icon" viewBox="0 0 24 24" fill="#26A17B"><path d="M12 24c6.627 0 12-5.373 12-12S19.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm1.25-16.142v2.544c1.942.112 3.424.516 3.424 1.004 0 .487-1.482.891-3.424 1.004v6.868h-2.5v-6.868c-1.942-.112-3.424-.516-3.424-1.004 0-.487 1.482-.891 3.424-1.004V7.858h-3.75V5.142h11v2.716h-3.75z"/></svg>
-    USDT
-  </button>
-  <button class="crypto-btn" id="btn-crypto-ada" onclick="selecionarCrypto('ada')">
-    <svg class="crypto-icon" viewBox="0 0 24 24" fill="#3b82f6"><path d="M12 0c6.627 0 12 5.373 12 12S19.627 24 12 24 0 18.627 0 12 5.373 0 12 0zm3.435 6.045c-.482-.444-1.066-.374-1.424.116-.363.49-.247 1.114.237 1.558.484.444 1.065.374 1.424-.116.362-.49.247-1.114-.237-1.558zm-6.87 0c-.484.444-.6 1.068-.237 1.558.36.49.94.56 1.424.116.484-.444.6-1.068.237-1.558-.36-.49-.94-.56-1.424-.116zm7.235 6.467c-.218.624.16 1.257.73 1.455.57.198 1.144-.06 1.36-.684.218-.624-.16-1.257-.73-1.455-.57-.198-1.144.06-1.36.684zm-11.6 0c-.216-.624-.79-.882-1.36-.684-.57.198-.948.831-.73 1.455.218.624.79.882 1.36.684.57-.198.948-.831.73-1.455zm8.17 4.962c.162.64.757.98 1.32.75.564-.23.83-.93.667-1.57-.163-.64-.758-.98-1.32-.75-.563.23-.83.93-.667 1.57zm-4.74 0c.163-.64-.104-1.34-.667-1.57-.563-.23 1.157.11-1.32.75-.163.64.104 1.34.667 1.57.563.23 1.157-.11 1.32-.75z"/></svg>
-    ADA
-  </button>
-  <button class="crypto-btn" id="btn-crypto-eth" onclick="selecionarCrypto('eth')">
-    <svg class="crypto-icon" viewBox="0 0 24 24" fill="#a78bfa"><path d="M12 0L4.62 12.22 12 16.58l7.38-4.36L12 0zm0 18.28l-7.38-4.36L12 24l7.38-10.08-7.38 4.36z"/></svg>
-    ETH
-  </button>
-  <button class="crypto-btn" id="btn-crypto-sol" onclick="selecionarCrypto('sol')">
-    <svg class="crypto-icon" viewBox="0 0 24 24" fill="#00FFA3"><path d="M0 3.75L3.75 0h20.25l-3.75 3.75H0zm0 7.5l3.75-3.75h20.25l-3.75 3.75H0zm0 7.5l3.75-3.75h20.25l-3.75 3.75H0z"/></svg>
-    SOL
-  </button>
+  📊 <strong>Simulador de Ponto de Equilíbrio (Break-Even):</strong> Esta ferramenta offline projeta suas taxas de compra e venda da Binance para revelar o preço exato de saída necessário para não perder dinheiro com o BTC.
 </div>
 
 <div class="painel">
 
-  <!-- TÍTULO DINÂMICO CENTRALIZADO -->
   <div class="titulo-container">
-    <span id="titulo-icon-area"></span>
-    <div class="titulo" id="painel-titulo">Calculadora BTC/BRL</div>
+    <h1 class="titulo-animado">
+      <span class="btc-simbolo">₿</span> Calculadora BTC/BRL
+    </h1>
   </div>
   
-  <!-- PREÇO ATUAL (MÁSCARA DE DIGITAÇÃO REMOVIDA PARA PERMITIR FRAÇÕES DECIMAIS) -->
+  <!-- PREÇO ATUAL DO BTC -->
   <div class="card">
-    <div class="label" id="label-preco">Preço atual do BTC</div>
+    <div class="label">Preço atual do BTC (R$)</div>
     <div class="input-wrap">
       <span class="prefix">R$</span>
-      <input type="text" inputmode="decimal" id="precoBTC" placeholder="0,00" oninput="calcular()">
+      <input type="text" inputmode="decimal" id="precoBTC" placeholder="0,00" oninput="formatarMoeda(this); calcular()">
     </div>
   </div>
 
-  <!-- VALOR INVESTIDO (MÁSCARA PRESERVADA POIS INVESTIMENTO É SEMPRE 2 CASAS DECIMAIS) -->
+  <!-- VALOR INVESTIDO -->
   <div class="card">
     <div class="label">Quanto você vai investir</div>
     <div class="input-wrap">
@@ -480,10 +429,11 @@
     <div id="avisoMinimo" style="display:none; color:var(--danger); font-size:10.5px; margin-top:4px; font-weight:700; text-align:left;"></div>
   </div>
 
+  <!-- BNB SWITCH -->
   <div class="card" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; margin-bottom: 8px;">
     <div class="label" style="margin-bottom: 0;">Pagar taxas com BNB? <span style="color: var(--accent2); font-size: 9px; font-weight: 700;">25% DESC.</span></div>
     <div class="setas">
-      <button class="seta" id="btnBNB" onclick="toggleBNB()" style="padding: 4px 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; font-weight: 700; width:auto; margin-top:0; border-radius: 6px; border: 1px solid var(--border); animation:none; background-color:#007a2f;">Ativar (0,075%)</button>
+      <button class="seta" id="btnBNB" onclick="toggleBNB()" style="padding: 4px 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; font-weight: 700; width:auto; margin-top:0; border-radius: 6px; border: 1px solid var(--border); animation:none; background-color:rgba(255, 255, 255, 0.03);">Ativar (0,075%)</button>
     </div>
   </div>
 
@@ -504,7 +454,7 @@
       </div>
     </div>
     <div class="res-card destaque">
-      <div class="res-label" id="label-recebe">BTC que você recebe</div>
+      <div class="res-label">BTC que você recebe</div>
       <div class="res-valor verde" id="btcRecebido">—</div>
     </div>
   </div>
@@ -515,7 +465,7 @@
 
   <div class="resultado-grid">
     <div class="res-card destaque">
-      <div class="res-label" id="label-min-venda">Preço mínimo de venda do BTC</div>
+      <div class="res-label">Preço mínimo de venda do BTC</div>
       <div class="res-valor amarelo" id="precoMinVenda">—</div>
     </div>
     <div class="res-card">
@@ -533,19 +483,19 @@
 
   <div class="card" style="text-align:center;">
     <div class="res-label">Você recebe líquido ao vender no mínimo</div>
-    <div class="res-valor verde" id="liquido" style="font-size:18px; margin-top:2px;">—</div>
+    <div class="res-valor verde" id="liquido" style="font-size:16px; margin-top:2px;">—</div>
   </div>
 
   <hr class="divider">
 
   <div class="section-title">Simular venda acima do mínimo</div>
 
-  <!-- SE CHEGAR A... (MÁSCARA DE DIGITAÇÃO REMOVIDA PARA PERMITIR QUALQUER DIGITAÇÃO DECIMAL COMO 0,89 OU 2,548) -->
+  <!-- SE CHEGAR A... -->
   <div class="card">
-    <div class="label" id="label-chegar">Se o BTC chegar a (R$)</div>
+    <div class="label">Se o BTC chegar a (R$)</div>
     <div class="input-wrap">
       <span class="prefix">R$</span>
-      <input type="text" inputmode="decimal" id="precoVendaSim" placeholder="0,00" oninput="simularLucro()" onpaste="tratarCola(event)">
+      <input type="text" inputmode="decimal" id="precoVendaSim" placeholder="0,00" oninput="formatarMoeda(this); simularLucro()" onpaste="tratarCola(event)">
     </div>
   </div>
 
@@ -560,6 +510,17 @@
     </div>
   </div>
 
+  <!-- TERMÔMETRO DE RETORNO / FEEDBACK VISUAL -->
+  <div class="card termometro-card">
+    <div class="termometro-info">
+      <span id="termometroTexto" style="color: var(--muted2);">Aguardando dados...</span>
+      <span id="termometroPercent" style="color: var(--muted2);">0.00%</span>
+    </div>
+    <div class="termometro-bar-bg">
+      <div id="termometroBarFill" class="termometro-bar-fill"></div>
+    </div>
+  </div>
+
   <button onclick="limpar()">🗑 Limpar</button>
 
 </div>
@@ -571,71 +532,26 @@
 </div>
 
 <script>
-  // CONFIGURAÇÃO DOS LOGOTIPOS VETORIAIS OFICIAIS (SVG) EM ALTA DEFINIÇÃO (HD) COM CORES DINÂMICAS DE ACORDO COM A IDENTIDADE DE CADA MOEDA
-  const COIN_CONFIG = {
-    btc: { 
-      symbol: '₿', name: 'BTC', decimals: 8, placeholderPrice: '320.000,00', minAmount: 0.00001,
-      color: '#F3BA2F', // Bitcoin Gold
-      icon: '<svg class="crypto-icon" viewBox="0 0 24 24" fill="#F3BA2F" style="width: 18px; height: 18px; vertical-align: middle;"><path d="M23.638 14.073c-.45-1.81-1.615-3.155-3.328-3.793 1.25-.66 2.055-1.742c2.304-3.17-.294-1.688-.236-3.15-1.503-4.148-1.047-.826-2.5-1.162-4.123-1.157L16.988 1.8V0h-3.033v1.8h-1.89V0H9.032v1.8H5.97v2.247c1.393.003 2.155.437 2.14 1.348l-.01 9.682c.005.626-.547.962-1.714.954l-1.393.003V19.3h3.063v1.8h3.032V19.3h1.89v1.8h3.033V19.3c3.486.007 5.76-.713 6.643-3.18.59-1.66.423-3.522-.162-5.112zM12.016 4.908h3.337c1.077 0 1.83.178 2.215.753.376.561.346 1.344-.067 1.895-.417.553-1.25.751-2.483.743h-3.002V4.908zm0 6.657h3.766c1.196 0 1.956.243 2.345.823.364.545.318 1.488-.13 2.072-.44.577-1.312.753-2.678.742h-3.303v-3.637z"/></svg>'
-    },
-    usdt: { 
-      symbol: '$', name: 'USDT', decimals: 2, placeholderPrice: '5,50', minAmount: 1.0,
-      color: '#26A17B', // Tether Green
-      icon: '<svg class="crypto-icon" viewBox="0 0 24 24" fill="#26A17B" style="width: 18px; height: 18px; vertical-align: middle;"><path d="M12 24c6.627 0 12-5.373 12-12S19.627 0 12 0 0 5.373 0 12s5.373 12 12 12zm1.25-16.142v2.544c1.942.112 3.424.516 3.424 1.004 0 .487-1.482.891-3.424 1.004v6.868h-2.5v-6.868c-1.942-.112-3.424-.516-3.424-1.004 0-.487 1.482-.891 3.424-1.004V7.858h-3.75V5.142h11v2.716h-3.75z"/></svg>'
-    },
-    ada: { 
-      symbol: '₳', name: 'ADA', decimals: 2, placeholderPrice: '2,50', minAmount: 1.0,
-      color: '#3b82f6', // Cardano Blue
-      icon: '<svg class="crypto-icon" viewBox="0 0 24 24" fill="#3b82f6" style="width: 18px; height: 18px; vertical-align: middle;"><path d="M12 0c6.627 0 12 5.373 12 12S19.627 24 12 24 0 18.627 0 12 5.373 0 12 0zm3.435 6.045c-.482-.444-1.066-.374-1.424.116-.363.49-.247 1.114.237 1.558.484.444 1.065.374 1.424-.116.362-.49.247-1.114-.237-1.558zm-6.87 0c-.484.444-.6 1.068-.237 1.558.36.49.94.56 1.424.116.484-.444.6-1.068.237-1.558-.36-.49-.94-.56-1.424-.116zm7.235 6.467c-.218.624.16 1.257.73 1.455.57.198 1.144-.06 1.36-.684.218-.624-.16-1.257-.73-1.455-.57-.198-1.144.06-1.36.684zm-11.6 0c-.216-.624-.79-.882-1.36-.684-.57.198-.948.831-.73 1.455.218.624.79.882 1.36.684.57-.198.948-.831.73-1.455zm8.17 4.962c.162.64.757.98 1.32.75.564-.23.83-.93.667-1.57-.163-.64-.758-.98-1.32-.75-.563.23-.83.93-.667 1.57zm-4.74 0c.163-.64-.104-1.34-.667-1.57-.563-.23 1.157.11-1.32.75-.163.64.104 1.34.667 1.57.563.23 1.157-.11 1.32-.75z"/></svg>'
-    },
-    eth: { 
-      symbol: 'Ξ', name: 'ETH', decimals: 8, placeholderPrice: '18.000,00', minAmount: 0.0001,
-      color: '#a78bfa', // Ethereum Purple
-      icon: '<svg class="crypto-icon" viewBox="0 0 24 24" fill="#a78bfa" style="width: 18px; height: 18px; vertical-align: middle;"><path d="M12 0L4.62 12.22 12 16.58l7.38-4.36L12 0zm0 18.28l-7.38-4.36L12 24l7.38-10.08-7.38 4.36z"/></svg>'
-    },
-    sol: { 
-      symbol: '◎', name: 'SOL', decimals: 4, placeholderPrice: '800,00', minAmount: 0.01,
-      color: '#00FFA3', // Solana Mint Green
-      icon: '<svg class="crypto-icon" viewBox="0 0 24 24" fill="#00FFA3" style="width: 18px; height: 18px; vertical-align: middle;"><path d="M0 3.75L3.75 0h20.25l-3.75 3.75H0zm0 7.5l3.75-3.75h20.25l-3.75 3.75H0zm0 7.5l3.75-3.75h20.25l-3.75 3.75H0z"/></svg>'
-    }
-  };
-
-  let _cryptoSelecionada = 'btc';
   let _usarBNB = false;
 
-  // FORMATADOR DINÂMICO DE ALTA PRECISÃO FIAT (Se for menor que R$ 10,00, exibe até 8 casas decimais para manter a precisão das moedas baratas como ADA)
+  // Formatação de Dinheiro em Reais
   const fmt = v => {
     const val = parseFloat(v);
     if (isNaN(val) || val === null) return 'R$ 0,00';
-    if (val > -10.00 && val < 10.00 && val !== 0) {
-      return 'R$ ' + val.toLocaleString('pt-BR', {minimumFractionDigits:4, maximumFractionDigits:8});
-    }
     return 'R$ ' + val.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
   };
 
-  // FORMATADOR DINÂMICO DOS PREÇOS DE MOEDAS BARATAS PARA PRESERVAR AS CASAS DECIMAIS NA DIGITAÇÃO (Simulado ou Real)
-  const fmtInput = v => {
-    const val = parseFloat(v);
-    if (isNaN(val) || val === null) return '';
-    if (val > 0 && val < 10) {
-      return val.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 8});
-    }
-    return val.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  };
-
-  const fmtCrypto = (v, coin) => {
-    const config = COIN_CONFIG[coin];
+  // Formatação com precisão de 8 casas decimais para BTC
+  const fmtCrypto = v => {
     return v.toLocaleString('pt-BR', {
-      minimumFractionDigits: config.decimals,
-      maximumFractionDigits: config.decimals
-    }) + ' ' + config.name;
+      minimumFractionDigits: 8,
+      maximumFractionDigits: 8
+    }) + ' BTC';
   };
-
-  const fmtPct = v => v.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}) + '%';
 
   document.getElementById('dataFooter').textContent = new Date().toLocaleDateString('pt-BR');
 
-  // MÁSCARA DE MOEDA BRASILEIRA EM TEMPO REAL (MANTIDA SÓ NO VALOR INVESTIDO, POIS ELE É SEMPRE FIAT 2 CASAS DECIMAIS)
+  // Máscara brasileira em tempo real (digitação limpa e precisa)
   function formatarMoeda(input) {
     let valor = input.value.replace(/\D/g, ""); 
     if (!valor) {
@@ -649,7 +565,7 @@
     });
   }
 
-  // CONTROLE DO BOTÃO BNB (TAXA REDUZIDA PARA 0,075% EXCLUSIVA DA BINANCE)
+  // Ativador de taxa com desconto de BNB (0.075%)
   function toggleBNB() {
     _usarBNB = !_usarBNB;
     const btn = document.getElementById('btnBNB');
@@ -674,75 +590,69 @@
     calcular();
   }
 
+  // Função reescrita para incrementar exatamente de 0,01 em 0,01 sem erros decimais
   function ajustarTaxa(id, delta) {
     const el = document.getElementById(id);
-    let val = parseFloat(el.value.replace(',', '.')) || 0;
-    val = Math.max(0, Math.round((val + delta) * 100) / 100);
-    el.value = val.toFixed(3).replace('.', ','); // Ajustado para aceitar 3 decimais se necessário
+    if (!el) return;
+    
+    // Leitura limpa do valor decimal
+    let val = parseFloat(el.value.trim().replace(',', '.')) || 0;
+    
+    // Incremento/decremento preciso
+    let novoVal = val + delta;
+    if (novoVal < 0) novoVal = 0;
+    
+    // Arredondamento para evitar ruído do javascript (ex: 0.1 + 0.2 = 0.30000004)
+    novoVal = Math.round(novoVal * 1000) / 1000;
+    
+    // Atribuição com formatação brasileira sem zeros inúteis à direita
+    el.value = novoVal.toString().replace('.', ',');
+    
     calcular();
   }
 
-  // NORMALIZADOR INTELIGENTE (Decodifica o ponto de milhar e a vírgula de forma 100% precisa tanto no padrão US quanto no BR)
+  // Decodifica valores monetários formatados (com milhar)
   function parseInputVal(id) {
     const el = document.getElementById(id);
     if (!el) return 0;
     let raw = el.value.trim();
     if (!raw) return 0;
     
-    raw = raw.replace(/R\$\s*/gi, '').replace(/\s/g, '');
-    
-    if (raw.includes(',') && raw.includes('.')) {
-      raw = raw.replace(/\./g, '').replace(',', '.');
-    } else if (raw.includes(',')) {
-      raw = raw.replace(',', '.');
-    } else {
-      // Diferencia ponto de milhar de ponto decimal (US)
-      const lastDotIdx = raw.lastIndexOf('.');
-      if (lastDotIdx !== -1) {
-        const charsAfterDot = raw.length - 1 - lastDotIdx;
-        if (charsAfterDot === 3) {
-          raw = raw.replace(/\./g, '');
-        }
-      }
-    }
+    // Remove os pontos de milhar e substitui a vírgula decimal por ponto.
+    raw = raw.replace(/\./g, '').replace(',', '.');
     
     const num = parseFloat(raw);
     return isNaN(num) ? 0 : num;
   }
 
-  function getTaxas() {
-    const tc = parseInputVal('taxaCompraInput') || 0;
-    const tv = parseInputVal('taxaVendaInput') || 0;
-    return { tc: tc / 100, tv: tv / 100 };
+  // Novo parser seguro para taxas (evita que pontos normais quebrem a porcentagem)
+  function parseRateVal(id) {
+    const el = document.getElementById(id);
+    if (!el) return 0;
+    let raw = el.value.trim();
+    if (!raw) return 0;
+    
+    // Nas taxas substitui apenas a vírgula direta por ponto, sem mexer em pontos normais
+    raw = raw.replace(',', '.');
+    const num = parseFloat(raw);
+    return isNaN(num) ? 0 : num;
   }
 
-  // Tratador aprimorado de inputs de simulação
-  function limparNumero(val) {
-    if (typeof val === 'number') return val;
-    let s = String(val).replace(/R\$\s*/gi, '').replace(/\s/g, '').trim();
-    if (s.includes(',')) {
-      s = s.replace(/\./g, '').replace(',', '.');
-    } else {
-      const lastDotIdx = s.lastIndexOf('.');
-      if (lastDotIdx !== -1) {
-        const charsAfterDot = s.length - 1 - lastDotIdx;
-        if (charsAfterDot === 3) {
-          s = s.replace(/\./g, '');
-        }
-      }
-    }
-    return parseFloat(s) || 0;
+  function getTaxas() {
+    const tc = parseRateVal('taxaCompraInput') || 0;
+    const tv = parseRateVal('taxaVendaInput') || 0;
+    return { tc: tc / 100, tv: tv / 100 };
   }
 
   function tratarCola(e) {
     e.preventDefault();
     let texto = (e.clipboardData || window.clipboardData).getData('text');
-    texto = texto.replace(/R\$\s*/gi, '').replace(/\s/g, '');
-    
-    let num = parseFloat(texto.replace(/\./g, '').replace(',', '.')) || 0;
+    texto = texto.replace(/\D/g, ''); // Mantém apenas números
+    if (!texto) return;
+
     const el = e.target;
-    el.value = fmtInput(num);
-    
+    el.value = texto;
+    formatarMoeda(el);
     simularLucro();
   }
 
@@ -757,6 +667,8 @@
       });
       const elAvisoMin = document.getElementById('avisoMinimo');
       if (elAvisoMin) elAvisoMin.style.display = 'none';
+      
+      resetTermometro();
       return;
     }
 
@@ -767,26 +679,26 @@
     const taxaVendaVal  = btcRecebido * precoMin * tv;
     const liquidoVenda  = btcRecebido * precoMin - taxaVendaVal;
 
-    set('btcRecebido',   fmtCrypto(btcRecebido, _cryptoSelecionada), 'verde');
+    set('btcRecebido',   fmtCrypto(btcRecebido), 'verde');
     set('precoMinVenda', fmt(precoMin), 'amarelo');
     set('liquido',       fmt(liquidoVenda), 'verde');
 
-    // EXIBIÇÃO DE ALERTA DE COMPRA MÍNIMA ADAPTÁVEL POR MOEDA (BINANCE LIMITS)
-    const config = COIN_CONFIG[_cryptoSelecionada];
+    // Alerta de compra mínima na Binance (0.00001 BTC)
+    const btcMinLimit = 0.00001;
     const elAvisoMin = document.getElementById('avisoMinimo');
     if (elAvisoMin) {
-      if (btcRecebido < config.minAmount) {
-        // Calcula o investimento mínimo necessário em BRL para atingir a fração de 0.00001 BTC líquido
-        const minInvestimento = (config.minAmount * preco) / (1 - tc);
-        elAvisoMin.textContent = `⚠️ Abaixo de ${config.minAmount} ${config.name} (Investimento mín: ${fmt(minInvestimento)})`;
+      if (btcRecebido < btcMinLimit) {
+        const minInvestimento = (btcMinLimit * preco) / (1 - tc);
+        elAvisoMin.textContent = `⚠️ Abaixo de ${btcMinLimit} BTC (Investimento mín: ${fmt(minInvestimento)})`;
         elAvisoMin.style.display = 'block';
       } else {
         elAvisoMin.style.display = 'none';
       }
     }
 
-    // Preenche o simulador de venda automaticamente no formato adequado à escala de preço do ativo
-    document.getElementById('precoVendaSim').value = fmtInput(precoMin);
+    // Sincronização automática em tempo real do simulador
+    const simField = document.getElementById('precoVendaSim');
+    simField.value = precoMin.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     simularLucro();
   }
 
@@ -794,19 +706,22 @@
     const { tc, tv } = getTaxas();
     const preco       = parseInputVal('precoBTC');
     const investido   = parseInputVal('valorInvestido');
-    const precoSimVal = limparNumero(document.getElementById('precoVendaSim').value);
+    const precoSimVal = parseInputVal('precoVendaSim');
 
     if (!preco || !investido || !precoSimVal || preco <= 0 || investido <= 0 || precoSimVal <= 0) {
       set('simLiquido', '—', '');
       set('simLucro',   '—', '');
+      resetTermometro();
       return;
     }
 
     const taxaCompraVal = investido * tc;
     const btcRecebido   = (investido - taxaCompraVal) / preco;
+    const precoMin      = investido / (btcRecebido * (1 - tv));
     const brutoSim      = btcRecebido * precoSimVal;
     const liqSim        = brutoSim - (brutoSim * tv);
     const lucro         = liqSim - investido;
+    const pctROI        = (lucro / investido) * 100;
 
     set('simLiquido', fmt(liqSim), 'verde');
     
@@ -820,8 +735,61 @@
     const sinal = lucro > 0.00000001 ? '+' : '';
     document.getElementById('simLucro').textContent = sinal + fmt(lucro);
     document.getElementById('simLucro').className   = 'res-valor ' + col;
+
+    // ATUALIZAÇÃO REATIVA DO TERMÔMETRO DE RETORNO (FEEDBACK VISUAL)
+    const tTexto = document.getElementById('termometroTexto');
+    const tPercent = document.getElementById('termometroPercent');
+    const tBar = document.getElementById('termometroBarFill');
+
+    if (lucro < -0.005) {
+      // Estado de Prejuízo (Vermelho)
+      tTexto.textContent = '⚠️ Abaixo do break-even';
+      tTexto.style.color = 'var(--danger)';
+      tPercent.textContent = pctROI.toFixed(2) + '%';
+      tPercent.style.color = 'var(--danger)';
+      tBar.style.backgroundColor = 'var(--danger)';
+      
+      // Barra indica o quão próximo do Break-Even você está
+      let progressoLoss = (precoSimVal / precoMin) * 100;
+      tBar.style.width = Math.max(5, Math.min(95, progressoLoss)) + '%';
+    } else if (Math.abs(lucro) <= 0.005) {
+      // Estado de Break-Even (Amarelo)
+      tTexto.textContent = '⚖️ Ponto de equilíbrio';
+      tTexto.style.color = 'var(--accent)';
+      tPercent.textContent = '0.00%';
+      tPercent.style.color = 'var(--accent)';
+      tBar.style.backgroundColor = 'var(--accent)';
+      tBar.style.width = '100%';
+    } else {
+      // Estado de Lucro (Verde)
+      tTexto.textContent = '🚀 Retorno positivo';
+      tTexto.style.color = 'var(--accent2)';
+      tPercent.textContent = '+' + pctROI.toFixed(2) + '%';
+      tPercent.style.color = 'var(--accent2)';
+      tBar.style.backgroundColor = 'var(--accent2)';
+      
+      // Proporcional a uma meta de 10% de ganho líquido para encher a barra
+      let progressoGain = (pctROI / 10) * 100;
+      tBar.style.width = Math.max(15, Math.min(100, progressoGain)) + '%';
+    }
   }
 
+  // Limpa o termômetro de retorno
+  function resetTermometro() {
+    const tTexto = document.getElementById('termometroTexto');
+    const tPercent = document.getElementById('termometroPercent');
+    const tBar = document.getElementById('termometroBarFill');
+    if (tTexto && tPercent && tBar) {
+      tTexto.textContent = 'Aguardando dados...';
+      tTexto.style.color = 'var(--muted2)';
+      tPercent.textContent = '0.00%';
+      tPercent.style.color = 'var(--muted2)';
+      tBar.style.backgroundColor = 'var(--muted)';
+      tBar.style.width = '0%';
+    }
+  }
+
+  // Auxiliar para a transição suave de elementos
   function set(id, texto, col) {
     const el = document.getElementById(id);
     el.textContent = texto;
@@ -843,48 +811,58 @@
       document.getElementById(id).textContent = '—';
       document.getElementById(id).className = 'res-valor';
     });
+    resetTermometro();
   }
 
-  // CONTROLE DO PAINEL DE SELEÇÃO RÁPIDA (Atualiza todos os textos, placeholders, cores dinâmicas e logotipos oficiais)
-  function selecionarCrypto(coin) {
-    _cryptoSelecionada = coin;
-    
-    const coins = ['btc', 'usdt', 'ada', 'eth', 'sol'];
-    coins.forEach(c => {
-      const btn = document.getElementById('btn-crypto-' + c);
-      if (btn) {
-        if (c === coin) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      }
-    });
+  // SCRIPT EXCLUSIVO PARA CONTROLE DOS BTCs FLUTUANTES NO FUNDO
+  function inicializarBtcFundo() {
+    const quantidade = 35; 
+    for (let i = 0; i < quantidade; i++) {
+      const btc = document.createElement('div');
+      btc.className = 'bg-btc';
+      btc.innerHTML = '₿';
+      
+      btc.style.fontSize = `${12 + Math.random() * 58}px`;
+      btc.style.opacity = `${0.35 + Math.random() * 0.5}`;
+      btc.style.animationDelay = `${-Math.random() * 8}s`; 
+      
+      document.body.appendChild(btc);
 
-    const config = COIN_CONFIG[coin];
-    
-    // ATUALIZAÇÃO DE CORES DINÂMICAS DA INTERFACE (Muda as variáveis de cor em tempo real)
-    document.documentElement.style.setProperty('--accent', config.color);
-    
-    // Atualização dinâmica do título com o logotipo colorido oficial
-    document.getElementById('titulo-icon-area').innerHTML = config.icon;
-    document.getElementById('painel-titulo').textContent = `Calculadora ${config.name}/BRL`;
-    
-    document.getElementById('label-preco').textContent = `Preço atual do ${config.name}`;
-    document.getElementById('precoBTC').placeholder = `Ex: ${config.placeholderPrice}`;
-    document.getElementById('label-recebe').textContent = `${config.name} que você recebe`;
-    document.getElementById('label-min-venda').textContent = `Preço mínimo de venda do ${config.name}`;
-    document.getElementById('label-chegar').textContent = `Se o ${config.name} chegar a (R$)`;
+      const xInicial = Math.random() * window.innerWidth;
+      const yInicial = Math.random() * window.innerHeight;
+      btc.style.transform = `translate(${xInicial}px, ${yInicial}px)`;
 
-    // Zera inputs para evitar conflitos na transição de moedas
-    document.getElementById('precoBTC').value = '';
-    document.getElementById('precoVendaSim').value = '';
-    
-    calcular();
+      setTimeout(() => moverBtc(btc), 50);
+    }
   }
 
-  // Inicializa o logotipo do Bitcoin no carregamento inicial
-  selecionarCrypto('btc');
+  function moverBtc(el) {
+    const novoX = Math.random() * (window.innerWidth - 80);
+    const novoY = Math.random() * (window.innerHeight - 80);
+    
+    const transformAtual = getComputedStyle(el).transform;
+    let xAtual = 0, yAtual = 0;
+    if (transformAtual && transformAtual !== 'none') {
+      const matrix = transformAtual.split('(')[1].split(')')[0].split(',');
+      xAtual = parseFloat(matrix[4]) || 0;
+      yAtual = parseFloat(matrix[5]) || 0;
+    }
+    
+    const distancia = Math.hypot(novoX - xAtual, novoY - yAtual);
+    const velocidade = 65 + Math.random() * 80; 
+    const duracao = (distancia / velocidade) * 1000;
+
+    el.style.transition = `transform ${duracao}ms linear`;
+    el.style.transform = `translate(${novoX}px, ${novoY}px)`;
+
+    setTimeout(() => moverBtc(el), duracao);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarBtcFundo);
+  } else {
+    inicializarBtcFundo();
+  }
 </script>
 
 </body>
